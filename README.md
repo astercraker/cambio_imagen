@@ -1,1 +1,3 @@
-# cambio_imagen
+# Proyecto c++ cimg_library
+
+
