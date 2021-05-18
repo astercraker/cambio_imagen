@@ -30,12 +30,11 @@ class ConvertImageToArray{
             for (int r = 0; r < height; r++){
                 for (int c = 0; c < width; c++){
                     counter += 1;
-                    if(canales == 4){
-                        color_values[r][c] = {(int)src(c,r,0,0), (int)src(c,r,0,1), (int)src(c,r,0,2), (int)src(c,r,0,3)};
+                    vector<int> channels;
+                    for(int numChannel = 0; numChannel < canales; numChannel++){
+                        channels.push_back((int)src(c,r,0,numChannel));
                     }
-                    else if(canales == 3){
-                        color_values[r][c] = {(int)src(c,r,0,0), (int)src(c,r,0,1), (int)src(c,r,0,2)};
-                    }
+                    color_values[r][c] = channels;
 
                     buffer << "counter: " << counter << " (" << r << "," << c << ") =" << " R: " << (int)src(c,r,0,0) << " G: " << (int)src(c,r,0,1) << " B: " << (int)src(c,r,0,2) << " A: " << (int)src(c,r,0,3) << endl;
                 }
