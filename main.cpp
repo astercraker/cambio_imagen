@@ -5,6 +5,8 @@
 #include <sstream>
 #include <vector>
 #include "ConvertImageToArray.h"
+#include <stdlib.h>
+#include <ctype.h>
 
 using namespace std;
 using namespace cimg_library;
@@ -49,18 +51,26 @@ ChangesVector::ChangesVector(float _V, float _lenVect){
 int main()
 {
     FILE *f = popen("zenity --file-selection --title=\"Escoge una imagen\" --file-filter=\'Image files (png,jpg,bmp) | *.png *.jpg *.bmp\' ", "r");
-    std::string buffer;
+    string filename;
     char c;
     while(fread(&c,1,1,f)==1 && c!=EOF) {
-        buffer.push_back(c);
+        filename.push_back(c);
     }
 
-    if(buffer.length() == 0){
+    if(filename.length() == 0){
         cout << "No selecciono ningun archivo";
     }
     else
     {
-        string filename = "sword_16x16.jpg";
+        /*
+        const size_t last_slash_idx = filename.find_last_of("/");
+        if (std::string::npos != last_slash_idx)
+        {
+            filename.erase(0, last_slash_idx + 1);
+        }
+        */
+        filename.erase(std::remove_if(filename.begin(), filename.end(), ::isspace), filename.end());
+
         CImg<unsigned char> src(filename.c_str());
 
         ConvertImageToArray converted;
@@ -74,6 +84,7 @@ int main()
             }
             cout << endl;
         }
+
     }
 
     return 0;
