@@ -62,13 +62,6 @@ int main()
     }
     else
     {
-        /*
-        const size_t last_slash_idx = filename.find_last_of("/");
-        if (std::string::npos != last_slash_idx)
-        {
-            filename.erase(0, last_slash_idx + 1);
-        }
-        */
         filename.erase(std::remove_if(filename.begin(), filename.end(), ::isspace), filename.end());
 
         CImg<unsigned char> src(filename.c_str());
