@@ -48,20 +48,32 @@ ChangesVector::ChangesVector(float _V, float _lenVect){
 };
 int main()
 {
+    FILE *f = popen("zenity --file-selection --title=\"Escoge una imagen\" --file-filter=\'Image files (png,jpg,bmp) | *.png *.jpg *.bmp\' ", "r");
+    std::string buffer;
+    char c;
+    while(fread(&c,1,1,f)==1 && c!=EOF) {
+        buffer.push_back(c);
+    }
 
-    string filename = "sword_16x16.jpg";
-    CImg<unsigned char> src(filename.c_str());
-
-    ConvertImageToArray converted;
-    vector<vector< vector<int> >> vect = converted.Procesing(src);
-    cout << "Pixel Size: " << vect[0][0].size() << endl;
-    for (int i = 0; i < vect.size(); i++)
+    if(buffer.length() == 0){
+        cout << "No selecciono ningun archivo";
+    }
+    else
     {
-        for (int j = 0; j < vect[i].size(); j++)
+        string filename = "sword_16x16.jpg";
+        CImg<unsigned char> src(filename.c_str());
+
+        ConvertImageToArray converted;
+        vector<vector< vector<int> >> vect = converted.Procesing(src);
+        cout << "Pixel Size: " << vect[0][0].size() << endl;
+        for (int i = 0; i < vect.size(); i++)
         {
-            cout << vect[i][j][0] << " ";
+            for (int j = 0; j < vect[i].size(); j++)
+            {
+                cout << vect[i][j][0] << " ";
+            }
+            cout << endl;
         }
-        cout << endl;
     }
 
     return 0;
