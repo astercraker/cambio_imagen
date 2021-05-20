@@ -37,6 +37,8 @@
 			<Add option="-fexceptions" />
 		</Compiler>
 		<Unit filename="CImg.h" />
+		<Unit filename="ChangeComponent.cpp" />
+		<Unit filename="ConvertImageToArray.h" />
 		<Unit filename="icon.jpg" />
 		<Unit filename="icon.png" />
 		<Unit filename="main.cpp" />
